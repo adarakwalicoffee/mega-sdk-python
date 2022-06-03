@@ -13,6 +13,10 @@ RUN apt-get -y update && apt-get -y upgrade && \
         libsqlite3-dev libfreeimage-dev swig libboost-all-dev \
         libpthread-stubs0-dev zlib1g-dev
         
+# Installing Megasdkrest
+RUN curl -fsSL https://github.com/jaskaranSM/megasdkrest/releases/download/v0.1/megasdkrest -o /usr/local/bin/megasdkrest \
+&& chmod +x /usr/local/bin/megasdkrest
+
 # Installing Mega SDK Python Binding
 ENV MEGA_SDK_VERSION="3.9.7"
 RUN git clone https://github.com/meganz/sdk.git --depth=1 -b v$MEGA_SDK_VERSION ~/home/sdk \
