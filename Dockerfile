@@ -18,16 +18,15 @@ RUN curl -fsSL https://github.com/anasty17/megasdkrest/releases/download/latest/
 && chmod +x /usr/local/bin/megasdkrest
 
 # Installing Mega SDK Python Binding
-ENV MEGA_SDK_VERSION="4.0.2"
-RUN git clone https://github.com/meganz/sdk.git --depth=1 -b v$MEGA_SDK_VERSION ~/home/sdk \
+RUN git clone https://github.com/meganz/sdk.git --depth=1 -b v4.0.2 ~/home/sdk \
     && cd ~/home/sdk && rm -rf .git \
     && autoupdate -fIv && ./autogen.sh \
     && ./configure --disable-silent-rules --enable-python --with-sodium --disable-examples \
     && make -j$(nproc --all) \
     && cd bindings/python/ && python3 setup.py bdist_wheel \
-    && cd dist/ && pip3 install --no-cache-dir megasdk-$MEGA_SDK_VERSION-*.whl 
+    && cd dist/ && pip3 install --no-cache-dir megasdk-4.0.2-*.whl 
 
-# Requirements Mirror Bot
+# Requirements
 COPY requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
 
