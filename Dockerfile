@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ENV DEBIAN_FRONTEND="noninteractive"
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get -y update && apt-get -y upgrade && \
         apt-get install -y software-properties-common && \
@@ -14,11 +14,11 @@ RUN apt-get -y update && apt-get -y upgrade && \
         libpthread-stubs0-dev zlib1g-dev
         
 # Installing Megasdkrest
-RUN curl -fsSL https://github.com/jaskaranSM/megasdkrest/releases/download/v0.1/megasdkrest -o /usr/local/bin/megasdkrest \
+RUN curl -fsSL https://github.com/anasty17/megasdkrest/releases/download/latest/megasdkrest-amd64 -o /usr/local/bin/megasdkrest \
 && chmod +x /usr/local/bin/megasdkrest
 
 # Installing Mega SDK Python Binding
-ENV MEGA_SDK_VERSION="3.9.7"
+ENV MEGA_SDK_VERSION="4.0.2"
 RUN git clone https://github.com/meganz/sdk.git --depth=1 -b v$MEGA_SDK_VERSION ~/home/sdk \
     && cd ~/home/sdk && rm -rf .git \
     && autoupdate -fIv && ./autogen.sh \
@@ -36,7 +36,4 @@ RUN apt-get -y update && apt-get -y upgrade && apt-get -y autoremove && apt-get 
 WORKDIR /usr/src/app
 RUN chmod 777 /usr/src/app
 
-RUN locale-gen en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
